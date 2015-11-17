@@ -2,55 +2,90 @@ var fs = require('fs');
 var readline = require('readline');
 var stream = require('stream');
 var urlencode = require('urlencode');
+var events = require("events");
+var parsingProgress = new events.EventEmitter();
+
+var SectionsObj ={};
+var NextLinesSectionName = "";
+
+var manufacturerAliasArr=[];
+var OSAliasArr=[];
+var ModelsArr=[];
 
 
-var saveNextLines = false;
+getOSVersions();
+function getOSVersions(){
+	parseFile('IntcADSPGen.inf', 'CP-1252', ['Manufacturer']);
+	parsingProgress.on("finished", function(){
+		for (var manufacturerAlias in SectionsObj.Manufacturer) {
+			manufacturerAliasArr.push(manufacturerAlias);
+			var propertiesArr = SectionsObj.Manufacturer[manufacturerAlias].split(',');		
+			OSAliasArr.push(propertiesArr.shift());
+			ModelsArr.push(propertiesArr[0]);
+		}
+		console.log("OS>> "+OSAliasArr);
+		console.log("Models>> "+ModelsArr);
+	});
+};
 
-
-parseFile('IntcADSPGen.inf', 'CP-1252', 'Manufacturer');
-
-
-function parseFile (fileName, encoding, targetSection) {
+function parseFile (fileName, encoding, targetSectionsArr) {
 	var instream = fs.createReadStream(fileName); 
 	var outstream = new stream;
 	var rl = readline.createInterface(instream, outstream);	
 	var targetLinesArr =[];
 
 	rl.on('line', function(line) {	
-		line = urlencode.decode(line, encoding);		
-		var saveThisLine = ckeckForSection(line, targetSection);
-		if (saveNextLines && saveThisLine){
-			targetLinesArr.push(line);
+		line = urlencode.decode(line, encoding);
+
+		var lineForSaving = ckeckTargetSectionEntry(line, targetSectionsArr);
+		if (NextLinesSectionName && lineForSaving ) {
+			buildSectionsObj(NextLinesSectionName, line);
 		}
-		ckeckForSection(line, targetSection);		
+		ckeckTargetSectionEntry(line, targetSectionsArr);
 	});
 
 	rl.on('close', function() {
-		var OSArr = reworkSavedLines(targetLinesArr);
-	 	console.log(targetLinesArr);
-		console.log(OSArr);
+		//console.log(SectionsObj);
+		//console.log(SectionsObj.Manufacturer[Object.keys(SectionsObj.Manufacturer)[0]]);
+		console.log("Object successfully parsed");
+		parsingProgress.emit("finished");
+
 	});
 }
 
-function ckeckForSection(line, targetSection) {
+function ckeckTargetSectionEntry(line, targetSectionsArr) {
+	if (line.indexOf(";")==0 || line == ""){
+		var emptyLineOrComment = true;
+	} else {
+		var emptyLineOrComment = false;
+	}
+
 	var nextSectionStart =  line.indexOf("[");
-	
-	if (~nextSectionStart){		
-		var targetSectionStart =  line.indexOf("["+targetSection+"]");		
-		if (~targetSectionStart){
-			saveNextLines = true;			
+	if (~nextSectionStart) {
+		var sectionName = line.replace("[","").replace("]","");				
+		if (~targetSectionsArr.indexOf(sectionName)) {			
+			NextLinesSectionName = sectionName;									
 		} else {
-			saveNextLines = false;
+			NextLinesSectionName = "";
 		}
 		return false;
-	}
-	return true;
+	} else if (!emptyLineOrComment){
+		return true;
+	} else {
+		return false;
+	}	
 }
 
-function getOSfromLine (line) {
-	var linePartsArr = line.split(',');	
-	linePartsArr.shift(); 
-	return linePartsArr;
+
+function buildSectionsObj(sectionName, line) {
+	var linePartsArr = line.split('=');
+	if (sectionName in SectionsObj) {
+		SectionsObj[sectionName][linePartsArr[0]] = linePartsArr[1];
+	} else {
+		SectionsObj[sectionName] ={};
+		SectionsObj[sectionName][linePartsArr[0]] = linePartsArr[1];  // Убрать лишнее 
+	}
+	return SectionsObj;
 }
 
 function reworkSavedLines(targetLinesArr) {
@@ -61,5 +96,24 @@ function reworkSavedLines(targetLinesArr) {
 	return OSArr;
 }
 
+function getOSfromLine (line) {
+	var linePartsArr = line.split(',');	
+	linePartsArr.shift(); 
+	return linePartsArr;
+}
 
 
+// sectionsObj = {
+// 		"Manufacturer": {
+// 			"%V_BCM%": "BROADCOM, NTx86.6.0, NTamd64.6.0, NTx86.6.1, NTamd64.6.1",
+// 			"%V_BCM%": "BROADCOM, NTx86.6.0, NTamd64.6.0, NTx86.6.1, NTamd64.6.1"
+// 		},
+// 		"Strings": {
+// 			"V_BCM":"Broadcom",
+// 			"BCM430G_DeviceDesc":"Broadcom 802.11b/g WLAN",
+// 			"BCM430M_DeviceDesc":"Broadcom 802.11a/b/g WLAN"
+// 		},
+// 		"BROADCOM.NTamd64.6.1": {
+// 			"%BCM430G_DeviceDesc%" = "BCM43XG_NT60, PCI\VEN_14E4&DEV_4320&SUBSYS_00E70E11&REV_03",
+// 			"%BCM430G_DeviceDesc%" = "BCM43XGT_NT60, PCI\VEN_14E4&DEV_4320&SUBSYS_12F4103C&REV_03"
+// }
