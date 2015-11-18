@@ -1,43 +1,33 @@
 var fs = require('fs');
 var stream = require('stream');
 var readline = require('readline');
-var stream = require('stream');
 var urlencode = require('urlencode');
-var events = require("events");
-var parsingProgress = new events.EventEmitter();
 var NextLinesSectionName = "";
 
-var ParsedObj = {};
-var DriverObj = {};
-
 exports.parseFile = parseFile;
-exports.ParsedObj = ParsedObj;
-exports.DriverObj = DriverObj;
-exports.parsingProgress = parsingProgress;
 exports.trimStringsInArr =  trimStringsInArr;
-exports.clearOldData =  clearOldData;
 
 
-function parseFile (caller, fileName, encoding, targetSectionsArr, targetLinesArr) {
-	console.log(">>>"+arguments.callee.name+" fired, caller: "+caller);
-	
+function parseFile (callback, fileName, encoding, targetSectionsArr, targetLinesArr, ParsedObj) {		
+	console.log("File parsing started");
+	if (!ParsedObj) var ParsedObj={};	
 	var instream = fs.createReadStream(fileName);
 	var outsream;	
-	var rl = readline.createInterface(instream, outsream);	
+	var rl = readline.createInterface(instream, outsream);
 	
 	rl.on('line', function(line) {		
 		//line = urlencode.decode(line, encoding);		
 		var lineForSaving = ckeckLine(line, targetSectionsArr,targetLinesArr);
-		if (NextLinesSectionName && lineForSaving ) buildParsedObj(NextLinesSectionName, line);
+		if (NextLinesSectionName && lineForSaving ) {
+			ParsedObj = buildParsedObj(ParsedObj, NextLinesSectionName, line);
+		}
 		ckeckLine(line, targetSectionsArr, targetLinesArr);
 	});
 
-	rl.on('close', function() {
-		console.log("Parsing for "+caller+" finished");		
-		parsingProgress.emit("Parsing for "+caller+" finished");
-		
-	});
-	
+	rl.on('close', function() {		
+		console.log("File parsing finished");		
+		callback(ParsedObj);		
+	});	
 }
 
 function ckeckLine(line, targetSectionsArr, targetLinesArr) {
@@ -70,11 +60,12 @@ function isEmptyLineOrComment(line){
 	if (line.indexOf(";")==0 || line == "") return true;		
 }
 
-function buildParsedObj(sectionName, line) {	
+function buildParsedObj(ParsedObj, sectionName, line) {	
 	var linePartsArr = line.split('=');	
  	linePartsArr = trimStringsInArr(linePartsArr);
 	if (!(sectionName in ParsedObj)) ParsedObj[sectionName] ={};
 	ParsedObj[sectionName][linePartsArr[0]] = linePartsArr[1];
+	return ParsedObj;
 }
 
 function trimStringsInArr(arr){
@@ -82,9 +73,4 @@ function trimStringsInArr(arr){
 	return arr;
 }
 
-function clearOldData(){
-	console.log(">>>"+arguments.callee.name+" fired");
-	ParsedObj={};
-	DriverObj={};
-	NextLinesSectionName = "";			
-}
+

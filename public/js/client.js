@@ -19,8 +19,8 @@ $(function(){
         data: data,
         processData: false, 
         contentType: false, 
-        success: function (data) {        	
-        	buildView(data);        	
+        success: function (data) {        	        	
+        	buildView(data);
         	},
         error: function (jqXHR, textStatus, errorThrown) {
         	$('#log').html("Ошибка "+textStatus);        	
@@ -30,6 +30,7 @@ $(function(){
 	}
 
 	function buildView(data){
+		$('#log').html("");
 		var DriverObj = JSON.parse(data);
 		for (manufacturer in DriverObj){
 			$('#log').append('<h3>'+manufacturer+"</h3>");
