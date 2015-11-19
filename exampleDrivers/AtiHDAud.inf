@@ -1,0 +1,488 @@
+;------------------------------------------------------------------------------
+; ATI HD Audio Information file : AtiHDAud.inf
+;
+; Copyright (c) 1998-2010 ATI Technologies Inc. All rights reserved 
+;------------------------------------------------------------------------------
+
+
+[Version]
+Signature="$Windows NT$"
+Class=MEDIA
+ClassGuid={4d36e96c-e325-11ce-bfc1-08002be10318}
+Provider=%ATI%
+CatalogFile=AtiHDAud.cat
+DriverVer=04/06/2010,7.11.0.7705
+
+[DestinationDirs]
+DefaultDestDir      =10; dirid = \system32\drivers
+HdAudModel.CopyList =10,system32\drivers
+
+[SourceDisksNames]
+222=%DiskId1%,"",222
+
+[SourceDisksFiles]
+AtiHdmi.sys=222
+
+[Manufacturer]
+%ATI%=ATI,NTamd64.6.1,NTamd64.6.0
+
+[SignatureAttributes]
+AtiHdmi.sys=SignatureAttributes.DRM
+
+[SignatureAttributes.DRM]
+DRMLevel=1300
+
+;============================================================================
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[ATI.NTamd64.6.1]
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_793C&SUBSYS_00793C00&REV_1000
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_791A&SUBSYS_00791A00&REV_1000
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_AA01&SUBSYS_00AA0100&REV_1000
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_AA01&SUBSYS_00AA0100&REV_1001
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_AA01&SUBSYS_00AA0100&REV_1002
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_AA11
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_AA09
+%HdAudioDeviceDescription% = HdAudModel, HDAUDIO\FUNC_01&VEN_1002&DEV_AA19
+
+[ATI.NTamd64.6.0]
+
+
+[HdAudModel]
+Include=ks.inf,wdmaudio.inf
+Needs=KS.Registration,WDMAUDIO.Registration,mssysfx.CopyFilesAndRegister
+CopyFiles = HdAudModel.CopyList
+AddReg    = HdAudModel.AddReg
+AddProperty = HdAudBranding.AddProperty
+
+
+[HdAudBranding.AddProperty]
+;DeviceBrandingIcon,,,,"%1%\AtiHdmi.sys,-203"
+DeviceVendorWebSite,,,,"http://ati.amd.com/products/index.html"
+
+[HdAudModel.HW]
+AddReg = HdAudSecurity.AddReg
+
+[HdAudModel.Services]
+AddService=AtiHdmiService, 0x00000002, HdAud_Service_Install
+
+[HdAud_Service_Install]
+DisplayName   = %ATIHdAudioDriver.SvcDesc%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %10%\system32\drivers\AtiHdmi.sys
+
+[HdAudModel.CopyList]
+AtiHdmi.sys
+
+
+[HdAudModel.AddReg]
+
+HKR,,Driver,,AtiHdmi.sys
+
+HKR,Drivers,SubClasses,,"wave,midi,mixer,aux"
+
+HKR,Drivers\wave\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\midi\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\mixer\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\aux\wdmaud.drv,Driver,,wdmaud.drv
+
+HKR,,AssociatedFilters,,"wdmaud,swmidi,redbook"
+
+HKR,Drivers\wave\wdmaud.drv,Description,,%HdAudioDeviceDescription%
+HKR,Drivers\midi\wdmaud.drv,Description,,%HdAudioDeviceDescription%
+HKR,Drivers\mixer\wdmaud.drv,Description,,%HdAudioDeviceDescription%
+HKR,Drivers\aux\wdmaud.drv,Description,,%HdAudioDeviceDescription%
+
+HKR,,DisableSetupDiChangeState,1,00,00,00,00 ; Set to 01,00,00,00 to disable proppage restarting of driver on policy change
+; Driver global settings
+HKR,GlobalSettings,DcOffsetWorkaround,1,01,00,00,00 ; Applies workaround for recording DC offset issue
+HKR,GlobalSettings,ResetAudioFgOnStart,1,01,00,00,00 ; Enables resetting of audio FG on driver start
+HKR,GlobalSettings,SysAudioTopoMiniportWorkaround,1,01,00,00,00 ; Enables holding ref on topo port & miniport when device is uninstantiated
+HKR,GlobalSettings,AC3DetectionDelay,1,01,00,00,00 ;Use this key to increase or decrease the Device detection period.
+
+HKR,GlobalSettings,ValidateCodecWrites,1,00,00,00,00 ; Enables readback of writes to codec registers
+HKR,GlobalSettings,SendFakePcxCfgDefVerbs,1,00,00,00,00 ; Enables sending fake pin config default table
+HKR,GlobalSettings,SpdifOutputEchosRearRenderWhenNoAc3,1,01,00,00,00 ; Slaves rear panel front channels to SPDIF
+HKR,GlobalSettings,HpShutsOffRearSpeaker,1,00,00,00,00 ; Headphone does not mute rear speakers
+HKR,GlobalSettings,HpMode,1,01,00,00,00 ; Headphone is slaved to rear panel front channels
+HKR,GlobalSettings,EnableDynamicDevices,1,01,00,00,00 ; Headphone will come and go dynamically.
+HKR,GlobalSettings,SilentStream,1,00,00,00,00;
+HKR,GlobalSettings,EnableJackEvent,1,00,00,00,00 ;  jackevent was not implemented defaulty
+HKR,GlobalSettings,SetSpdifVCfg,1,01,00,00,00 ;  VCfg bit will be set on SPDIF out
+
+; Registry key to enable waveRT by default
+HKR,GlobalSettings,EnableWaveRT,1,01,00,00,00
+
+HKR,GlobalSettings\\SpdifOut,ExternalSpdifReceiverSupportedSampleRates44100,1,01,00,00,00 ; By default, supported
+HKR,GlobalSettings\\SpdifOut,ExternalSpdifReceiverSupportedSampleRates48000,1,01,00,00,00 ; By default, supported
+HKR,GlobalSettings\\SpdifOut,ExternalSpdifReceiverSupportedSampleRates96000,1,00,00,00,00 ; By default, not supported
+
+HKR,GlobalSettings\\SpdifOut,ExternalSpdifReceiverSupportedBitDepths16,1,01,00,00,00 ; By default, only one supported
+HKR,GlobalSettings\\SpdifOut,ExternalSpdifReceiverSupportedBitDepths20,1,00,00,00,00 ; By default, not supported
+HKR,GlobalSettings\\SpdifOut,ExternalSpdifReceiverSupportedBitDepths24,1,00,00,00,00 ; By default, not supported
+HKR,GlobalSettings\\SpdifOut,ExternalSpdifReceiverSupportedBitDepths32,1,00,00,00,00 ; By default, not supported
+
+HKR,GlobalSettings\\SpdifIn,SpdifInputBitDepth,1,00,00,00,00 ; By default, 16 bit digital capture
+HKR,GlobalSettings\\SpdifIn,SpdifInputSampleRate,1,01,00,00,00; By default, 48KHz digital capture
+;HKR,GlobalSettings,EnableFrontMic,1,00,00,00,00    ; 00 disable
+HKR,GlobalSettings,EnableFrontMic,1,01,00,00,00    ; 01 bios detect
+;HKR,GlobalSettings,EnableFrontMic,1,02,00,00,00    ; 02 enable
+;HKR,GlobalSettings,ForceAC3Support,1,01,00,00,00    ; 
+HKR,GlobalSettings,AC3DetectionDelay,1,0E,00,00,00    ; AC3 delay in multiple of 100ms. (REG_BINARY)
+HKR,GlobalSettings,CheckJackStatusOnPowerResume,1,01,00,00,00    ; 
+HKR,GlobalSettings,PowerResumeDetectionDelay,0x00010001,300 ; In multiples of 100ms (REG_DWORD)
+HKR,GlobalSettings,EnableCodecPowerSaving,1,01,00,00,00    ; double the original delay time.
+
+
+
+HKR,PowerSettings,ConservationIdleTime,1,1e,00,00,00
+HKR,PowerSettings,PerformanceIdleTime,1,2c,01,00,00
+HKR,PowerSettings,IdlePowerState,1,04,00,00,00
+
+
+[HdAudModel.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_RearLineOutWave%, HdAudModel.RearLineOutWave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_RearLineOutWave%, HdAudModel.RearLineOutWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_RearLineOutWave%, HdAudModel.RearLineOutWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_RearLineOutTopo%, HdAudModel.RearLineOutTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_RearLineOutTopo%, HdAudModel.RearLineOutTopo
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_RearLineInWave%, HdAudModel.RearLineInWave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_RearLineInWave%, HdAudModel.RearLineInWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_RearLineInWave%, HdAudModel.RearLineInWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_RearLineInTopo%, HdAudModel.RearLineInTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_RearLineInTopo%, HdAudModel.RearLineInTopo
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_FrontPanelHeadphoneWave%, HdAudModel.FrontPanelHeadphoneWave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_FrontPanelHeadphoneWave%, HdAudModel.FrontPanelHeadphoneWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_FrontPanelHeadphoneWave%, HdAudModel.FrontPanelHeadphoneWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_FrontPanelHeadphoneTopo%, HdAudModel.FrontPanelHeadphoneTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_FrontPanelHeadphoneTopo%, HdAudModel.FrontPanelHeadphoneTopo
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_FrontPanelMicWave%, HdAudModel.FrontPanelMicWave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_FrontPanelMicWave%, HdAudModel.FrontPanelMicWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_FrontPanelMicWave%, HdAudModel.FrontPanelMicWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_FrontPanelMicTopo%, HdAudModel.FrontPanelMicTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_FrontPanelMicTopo%, HdAudModel.FrontPanelMicTopo
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_DigitalOutputWave%, HdAudModel.DigitalOutputWave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_DigitalOutputWave%, HdAudModel.DigitalOutputWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_DigitalOutputWave%, HdAudModel.DigitalOutputWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_DigitalOutputTopo%, HdAudModel.DigitalOutputTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_DigitalOutputTopo%, HdAudModel.DigitalOutputTopo
+
+;
+; HDMI Out interfaces. 
+;
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_eHDMIOutWave%, HdAudModel.HDMIOutputWave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_eHDMIOutWave%, HdAudModel.HDMIOutputWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_eHDMIOutWave%, HdAudModel.HDMIOutputWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_eHDMIOutTopo%, HdAudModel.HDMIOutputTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_eHDMIOutTopo%, HdAudModel.HDMIOutputTopo
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_DigitalInputWave%, HdAudModel.DigitalInputWave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_DigitalInputWave%, HdAudModel.DigitalInputWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_DigitalInputWave%, HdAudModel.DigitalInputWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_DigitalInputTopo%, HdAudModel.DigitalInputTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_DigitalInputTopo%, HdAudModel.DigitalInputTopo
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_MicArrayWave%, HdAudModel.MicArrayWave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_MicArrayWave%, HdAudModel.MicArrayWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_MicArrayWave%, HdAudModel.MicArrayWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_MicArrayTopo%, HdAudModel.MicArrayTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_MicArrayTopo%, HdAudModel.MicArrayTopo
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_AuxInWave%, AzAudModel.AuxInWave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_AuxInWave%, AzAudModel.AuxInWave
+AddInterface=%KSCATEGORY_REALTIME%,%KSNAME_AuxInWave%, AzAudModel.AuxInWave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_AuxInTopo%, AzAudModel.AuxInTopo
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_AuxInTopo%, AzAudModel.AuxInTopo
+
+
+; Settings for system effect begins
+;
+; System Effects settings
+[HDAudio.SysFx.Render]
+HKR,"FX\\0",%PKEY_ItemNameDisplay%,,%FX_FriendlyName%
+HKR,"FX\\0",%PKEY_FX_PreMixClsid%,,%FX_PREMIX_CLSID%
+HKR,"FX\\0",%PKEY_FX_PostMixClsid%,,%FX_POSTMIX_CLSID%
+HKR,"FX\\0",%PKEY_FX_UiClsid%,,%FX_UI_CLSID%
+HKR,"FX\\0",%PKEY_FX_Association%,,%KSNODETYPE_ANY%
+; Settings for system effect ends
+
+; Rear line out
+[HdAudModel.RearLineOutWave]
+AddReg = HdAudModel.RearLineOutWave.AddReg
+
+[HdAudModel.RearLineOutWave.AddReg]
+HKR,,FriendlyName,,%RearLineOutWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+;HKR,,FriendlyName,,%RearLineOutDacName%
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;IntHdAudGuid.RearLineOutDac
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%HdAudGuidRearLineOutDac%,Name,,%RearLineOutDacName%
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%HdAudGuidRearLineOutDac%,Display,1,00,00,00,00
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%HdAudGuidDisableDigitalOutput%,Name,,%DisableDigitalOutputName%
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%HdAudGuidDisableDigitalOutput%,Display,1,00,00,00,00
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%HdAudGuidFrontHPOutDac%,Name,,%FrontHPOutDacName%
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%HdAudGuidFrontHPOutDac%,Display,1,00,00,00,00
+
+
+[HdAudModel.RearLineOutTopo]
+AddReg = HdAudModel.RearLineOutTopo.AddReg, HDAudio.SysFx.Render, EPProperties.AddReg
+
+[HdAudModel.RearLineOutTopo.AddReg]
+HKR,,FriendlyName,,%RearLineOutTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+; Rear line in
+
+[HdAudModel.RearLineInWave]
+AddReg = HdAudModel.RearLineInWave.AddReg
+
+[HdAudModel.RearLineInWave.AddReg]
+HKR,,FriendlyName,,%RearLineInWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[HdAudModel.RearLineInTopo]
+AddReg = HdAudModel.RearLineInTopo.AddReg
+
+[HdAudModel.RearLineInTopo.AddReg]
+HKR,,FriendlyName,,%RearLineInTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+; Front panel headphone
+
+[HdAudModel.FrontPanelHeadphoneWave]
+AddReg = HdAudModel.FrontPanelHeadphoneWave.AddReg
+
+[HdAudModel.FrontPanelHeadphoneWave.AddReg]
+HKR,,FriendlyName,,%FrontPanelHeadphoneWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[HdAudModel.FrontPanelHeadphoneTopo]
+AddReg = HdAudModel.FrontPanelHeadphoneTopo.AddReg, HDAudio.SysFx.Render, EPProperties.AddReg
+
+[HdAudModel.FrontPanelHeadphoneTopo.AddReg]
+HKR,,FriendlyName,,%FrontPanelHeadphoneTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+; Front panel mic
+
+[HdAudModel.FrontPanelMicWave]
+AddReg = HdAudModel.FrontPanelMicWave.AddReg
+
+[HdAudModel.FrontPanelMicWave.AddReg]
+HKR,,FriendlyName,,%FrontPanelMicWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[HdAudModel.FrontPanelMicTopo]
+AddReg = HdAudModel.FrontPanelMicTopo.AddReg
+
+[HdAudModel.FrontPanelMicTopo.AddReg]
+HKR,,FriendlyName,,%FrontPanelMicTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+
+; Digital output
+
+[HdAudModel.DigitalOutputWave]
+AddReg = HdAudModel.DigitalOutputWave.AddReg
+
+[HdAudModel.DigitalOutputWave.AddReg]
+HKR,,FriendlyName,,%DigitalOutputWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[HdAudModel.DigitalOutputTopo]
+AddReg = HdAudModel.DigitalOutputTopo.AddReg, HDAudio.SysFx.Render, EPProperties.AddReg
+
+[HdAudModel.DigitalOutputTopo.AddReg]
+HKR,,FriendlyName,,%DigitalOutputTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+;
+; HDMI Out 
+; 
+
+[HdAudModel.HDMIOutputWave]
+AddReg = HdAudModel.HDMIOutputWave.AddReg
+[HdAudModel.HDMIOutputWave.AddReg]
+HKR,,FriendlyName,,%HDMIOutputWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+[HdAudModel.HDMIOutputTopo]
+AddReg = HdAudModel.HDMIOutputTopo.AddReg, HDAudio.SysFx.Render, EPProperties.AddReg
+[HdAudModel.HDMIOutputTopo.AddReg]
+HKR,,FriendlyName,,%HDMIOutputTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%GUID.ATIDPOut%,Name,,%Node.ATIDPOut%
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%GUID.ATIDPOut%,Display,1,00,00,00,00
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%GUID.ATIHDMIOut%,Name,,%Node.ATIHDMIOut%
+HKLM,SYSTEM\CurrentControlSet\Control\MediaCategories\%GUID.ATIHDMIOut%,Display,1,00,00,00,00
+
+
+
+[EPProperties.AddReg]
+HKR,"EP\\0", %PKEY_AudioEndpoint_Association%,,%KSNODETYPE_ANY%
+HKR,"EP\\0", %PKEY_AudioEngine_OEMFormat%, %REG_BINARY%, 41,00,C8,70,28,00,00,00,FE,FF,02,00,80,BB,00,00,00,EE,02,00,04,00,10,00,16,00,10,00,03,00,00,00,01,00,00,00,00,00,10,00,80,00,00,AA,00,38,9B,71
+HKR,"EP\\0", %PKEY_AudioEndpoint_Supports_EventDriven_Mode%,0x00010001,0x1
+
+; Digital input
+
+[HdAudModel.DigitalInputWave]
+AddReg = HdAudModel.DigitalInputWave.AddReg
+
+[HdAudModel.DigitalInputWave.AddReg]
+HKR,,FriendlyName,,%DigitalInputWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[HdAudModel.DigitalInputTopo]
+AddReg = HdAudModel.DigitalInputTopo.AddReg
+
+[HdAudModel.DigitalInputTopo.AddReg]
+HKR,,FriendlyName,,%DigitalInputTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+; Microphone Array
+
+[HdAudModel.MicArrayWave]
+AddReg = HdAudModel.MicArrayWave.AddReg
+
+[HdAudModel.MicArrayWave.AddReg]
+HKR,,FriendlyName,,%MicArrayWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[HdAudModel.MicArrayTopo]
+AddReg = HdAudModel.MicArrayTopo.AddReg
+
+[HdAudModel.MicArrayTopo.AddReg]
+HKR,,FriendlyName,,%MicArrayTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+; Auxiliary Input
+
+[AzAudModel.AuxInWave]
+AddReg = AzAudModel.AuxInWave.AddReg
+
+[AzAudModel.AuxInWave.AddReg]
+HKR,,FriendlyName,,%AuxInWaveDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[AzAudModel.AuxInTopo]
+AddReg = AzAudModel.AuxInTopo.AddReg
+
+[AzAudModel.AuxInTopo.AddReg]
+HKR,,FriendlyName,,%AuxInTopoDeviceName%
+HKR,,CLSID,,%Proxy.CLSID%
+
+[HdAudSecurity.AddReg]
+; FILE_DEVICE_SOUND
+HKR,,DeviceType,0x10001,0x0000001D
+; SDDL_DEVOBJ_SYS_ALL_ADM_RWX_WORLD_RWX_RES_RWX
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GRGWGX;;;BA)(A;;GRGWGX;;;WD)(A;;GRGWGX;;;RC)"
+
+[Strings]
+RunDisplayName="High Definition Audio Property Page Shortcut" ; {PlaceHolder="High Definition Audio"}
+DiskId1 = "ATI HD Audio Installation Disk"
+ATIHdAudioDriver.SvcDesc = "ATI Function Driver for High Definition Audio Service"  
+
+RearLineOutWaveDeviceName =        "ATI HD Audio rear output" ; {PlaceHolder="HD Audio"}
+RearLineOutDacName =               "ATI HD Audio rear line out" ; {PlaceHolder="HD Audio"}
+RearLineInWaveDeviceName =         "ATI HD Audio rear input" ; {PlaceHolder="HD Audio"}
+RearMicInWaveDeviceName =          "ATI HD Audio rear mic" ; {PlaceHolder="HD Audio"}
+FrontPanelHeadphoneWaveDeviceName ="ATI HD Audio front headphone" ; {PlaceHolder="HD Audio"}
+FrontHPOutDacName =                "ATI HD Audio front headphone" ; {PlaceHolder="HD Audio"}
+FrontPanelMicWaveDeviceName =      "ATI HD Audio front mic" ; {PlaceHolder="HD Audio"}
+DigitalOutputWaveDeviceName =      "ATI HD Audio digital out" ; {PlaceHolder="HD Audio"}
+DigitalInputWaveDeviceName =       "ATI HD Audio digital in" ; {PlaceHolder="HD Audio"}
+MicArrayWaveDeviceName =           "ATI HD Audio mic array" ; {PlaceHolder="HD Audio"}
+AuxInWaveDeviceName =              "ATI HD Audio aux in" ; {PlaceHolder="HD Audio"}
+
+;
+; HDMI Out 
+;
+
+HDMIOutputWaveDeviceName =   "ATI HD Audio HDMI out"       ; {PlaceHolder="HD Audio"}
+HDMIOutputTopoDeviceName =   "ATI HD Audio HDMI out mixer" ; {PlaceHolder="HD Audio"}
+KSNAME_eHDMIOutWave = "eHDMIOutWave" ; non-localizable
+KSNAME_eHDMIOutTopo = "eHDMIOutTopo" ; non-localizable 
+
+RearLineOutTopoDeviceName =        "ATI HD Audio rear output mixer" ; {PlaceHolder="HD Audio"}
+RearLineInTopoDeviceName =         "ATI HD Audio rear input mixer" ; {PlaceHolder="HD Audio"}
+RearMicInTopoDeviceName =          "ATI HD Audio rear mic mixer" ; {PlaceHolder="HD Audio"}
+FrontPanelHeadphoneTopoDeviceName ="ATI HD Audio front headphone mixer" ; {PlaceHolder="HD Audio"}
+FrontPanelMicTopoDeviceName =      "ATI HD Audio front mic mixer" ; {PlaceHolder="HD Audio"}
+DigitalOutputTopoDeviceName =      "ATI HD Audio digital out mixer" ; {PlaceHolder="HD Audio"}
+DigitalInputTopoDeviceName =       "ATI HD Audio digital in mixer" ; {PlaceHolder="HD Audio"}
+MicArrayTopoDeviceName =           "ATI HD Audio mic array mixer" ; {PlaceHolder="HD Audio"}
+AuxInTopoDeviceName =              "ATI HD Audio aux in mixer" ; {PlaceHolder="HD Audio"}
+
+DisableDigitalOutputName = "ATI Disable Digital Output"
+HdAudioDeviceDescription = "ATI High Definition Audio Device" 
+
+KSNAME_RearLineOutWave = "AtiRearLineOutWave" ; non-localizable
+KSNAME_RearLineInWave = "AtiRearLineInWave" ; non-localizable
+KSNAME_FrontPanelHeadphoneWave ="AtiFrontPanelHeadphoneWave" ; non-localizable
+KSNAME_FrontPanelMicWave = "AtiFrontPanelMicWave" ; non-localizable
+KSNAME_DigitalOutputWave = "AtiDigitalOutputWave" ; non-localizable
+KSNAME_DigitalInputWave = "AtiDigitalInputWave" ; non-localizable
+KSNAME_MicArrayWave = "AtiMicArrayWave" ; non-localizable
+KSNAME_AuxInWave = "AtiAuxInputWave" ; non-localizable
+
+KSNAME_RearLineOutTopo = "AtiRearLineOutTopo" ; non-localizable
+KSNAME_RearLineInTopo = "AtiRearLineInTopo" ; non-localizable
+KSNAME_FrontPanelHeadphoneTopo = "AtiFrontPanelHeadphoneTopo" ; non-localizable
+KSNAME_FrontPanelMicTopo = "AtiFrontPanelMicTopo" ; non-localizable
+KSNAME_DigitalOutputTopo = "AtiDigitalOutputTopo" ; non-localizable
+KSNAME_DigitalInputTopo = "AtiDigitalInputTopo" ; non-localizable
+KSNAME_MicArrayTopo = "AtiMicArrayTopo" ; non-localizable
+KSNAME_AuxInTopo = "AtiAuxInputTopo" ; non-localizable
+
+KSCATEGORY_AUDIO = "{6994AD04-93EF-11D0-A3CC-00A0C9223196}" ; non-localizable
+KSCATEGORY_RENDER = "{65E8773E-8F56-11D0-A3B9-00A0C9223196}" ; non-localizable
+KSCATEGORY_CAPTURE = "{65E8773D-8F56-11D0-A3B9-00A0C9223196}" ; non-localizable
+KSCATEGORY_TOPOLOGY = "{DDA54A40-1E4C-11D1-A050-405705C10000}" ; non-localizable
+KSCATEGORY_REALTIME = "{EB115FFC-10C8-4964-831D-6DCB02E6F23F}" ; non-localizable
+Proxy.CLSID = "{17CCA71B-ECD7-11D0-B908-00A0C9223196}" ; non-localizable
+
+HdAudGuidRearLineOutDac     = "{0E6F73A9-5ABB-4f33-B599-ED28629625CC}" ; non-localizable
+HdAudGuidFrontHPOutDac      = "{0CE5C1D3-524F-448e-8C60-0CF07C219A08}" ; non-localizable
+HdAudGuidDisableDigitalOutput = "{6803405F-CE7C-4c0a-AA2A-4DEEA8E1CC91}" ; non-localizable
+GUID.ATIDPOut           = "{B0A870A0-BCAA-4f2d-BF5B-2636FDBD5B66}"
+Node.ATIDPOut           = "ATI DP Output"
+GUID.ATIHDMIOut         = "{45212B3F-FB13-40ed-BB07-A73EAA9A2B80}"
+Node.ATIHDMIOut         = "ATI HDMI Output"
+
+;Information for FX
+; PropertyKeys
+PKEY_FX_Association  = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},0"
+PKEY_FX_PreMixClsid  = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},1"
+PKEY_FX_PostMixClsid = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},2"
+PKEY_FX_UiClsid      = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},3"
+PKEY_ItemNameDisplay = "{B725F130-47EF-101A-A5F1-02608C9EEBAC},10"
+
+FX_UI_CLSID      = "{5860E1C5-F95C-4a7a-8EC8-8AEF24F379A1}"
+KSNODETYPE_ANY   = "{00000000-0000-0000-0000-000000000000}"
+FX_PREMIX_CLSID  = "{62dc1a93-ae24-464c-a43e-452f824c4250}"
+FX_POSTMIX_CLSID = "{637c490d-eee3-4c0a-973f-371958802da2}"
+FX_FriendlyName  = "Microsoft Audio Home Theater Effects"
+ATI              = "ATI Technologies Inc."
+
+;Information for EP
+; PropertyKeys
+;Non-localizable
+
+PKEY_AudioEndpoint_Association  = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},2"
+PKEY_AudioEngine_OEMFormat = "{E4870E26-3CC5-4CD2-BA46-CA0A9A70ED04},3"
+PKEY_AudioEndpoint_Supports_EventDriven_Mode = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},7"
+REG_BINARY          = 0x00000001

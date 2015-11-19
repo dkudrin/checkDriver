@@ -1,0 +1,472 @@
+; Nokia USB Host Driver for Windows
+; Copyright (c) Nokia Corporation. All rights reserved.
+; INF for Nokia devices
+; Date: 06/24/2014, Version: 1.0.0.28
+;
+
+[Version]
+Signature           = "$Windows NT$"
+Class               = USBDevice
+ClassGUID           = {88BAE032-5A81-49f0-BC3D-A4FF138216D6}
+Provider            = %ProviderName%
+DriverVer           = 06/24/2014, 1.0.0.28
+CatalogFile         = nokiacareconnectivity.cat
+
+[Manufacturer]
+%ProviderName%=DeviceList,NTx86,NTx86.6.0,NTamd64
+
+[SourceDisksNames]
+1 = %InstallDisk%,,,\coinstallers\x86
+2 = %InstallDisk%,,,\coinstallers\amd64
+
+[SourceDisksFiles.x86]
+winusbcoinstaller2.dll=1
+WdfCoInstaller01009.dll=1
+
+[SourceDisksFiles.amd64]
+winusbcoinstaller2.dll=2
+WdfCoInstaller01009.dll=2
+
+[DestinationDirs]
+CoInstallers_CopyFiles=11
+
+[DeviceList.NTx86]
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05ED&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05ED&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05ED&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05ED&MI_03
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05EE
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05EF
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065C&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065C&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065C&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065C&MI_03
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065F
+%DeviceDesc1% = USBInst1, USB\Vid_0421&PID_0660&MI_04
+%DeviceDesc1% = USBInst1, USB\Vid_0421&PID_0660&MI_05
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0660&MI_06
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0661&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_066E
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_066F
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0672
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067A
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067B&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067B&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067C&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067C&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069A&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069A&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069B&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069B&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E5&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E6&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E7&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E8&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E9&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06EA&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06ED&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06EE&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06FB&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_071F&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0720&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_045E&PID_04EC&MI_01
+
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0704&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0705&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0706&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0707&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0708&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0709&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0710&MI_00
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0723&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0724&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0725&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0726&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0727&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0728&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0729&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072A&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072B&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072C&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072D&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072E&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072F&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0730&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0731&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0732&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0733&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0734&MI_02
+
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0705&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0707&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0709&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070B&MI_00
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070D
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070F
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0710&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_071E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0720&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0722&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0724&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0726&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0728&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072A&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072C&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0730&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0732&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0734&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0736&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0738&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073A&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073C&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0740&MI_01
+%DeviceDesc3% = USBInst3, USB\VID_0421&PID_06E4
+%DeviceDesc3% = USBInst3, USB\VID_0421&PID_070E
+
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0735&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0736&MI_03
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0737&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0738&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0739&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073A&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073B&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073C&MI_03
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073D&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073E&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073F&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0740&MI_02
+
+[DeviceList.NTx86.6.0]
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05ED
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05EE
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05EF
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065C
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065F
+%DeviceDesc1% = USBInst1, USB\Vid_0421&PID_0660&MI_04
+%DeviceDesc1% = USBInst1, USB\Vid_0421&PID_0660&MI_05
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0660&MI_06
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0661&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_066E
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_066F
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0672
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067A
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067B&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067B&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067C&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067C&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069A&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069A&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069B&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069B&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E5&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E6&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E7&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E8&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E9&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06EA&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06ED&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06EE&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06FB&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_071F&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0720&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_045E&PID_04EC&MI_01
+
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0704&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0705&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0706&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0707&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0708&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0709&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0710&MI_00
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0723&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0724&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0725&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0726&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0727&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0728&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0729&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072A&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072B&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072C&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072D&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072E&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072F&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0730&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0731&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0732&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0733&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0734&MI_02
+
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0705&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0707&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0709&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070B&MI_00
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070D
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070F
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0710&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_071E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0720&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0722&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0724&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0726&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0728&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072A&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072C&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0730&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0732&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0734&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0736&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0738&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073A&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073C&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0740&MI_01
+%DeviceDesc3% = USBInst3, USB\VID_0421&PID_06E4
+%DeviceDesc3% = USBInst3, USB\VID_0421&PID_070E
+
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0735&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0736&MI_03
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0737&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0738&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0739&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073A&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073B&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073C&MI_03
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073D&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073E&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073F&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0740&MI_02
+
+[DeviceList.NTamd64]
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05ED
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05EE
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_05EF
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065C
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_065F
+%DeviceDesc1% = USBInst1, USB\Vid_0421&PID_0660&MI_04
+%DeviceDesc1% = USBInst1, USB\Vid_0421&PID_0660&MI_05
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0660&MI_06
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0661&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_066E
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_066F
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0672
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067A
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067B&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067B&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067C&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_067C&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069A&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069A&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069B&MI_00
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_069B&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E5&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E6&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E7&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E8&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06E9&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06EA&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06ED&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06EE&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_06FB&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_071F&MI_01
+%DeviceDesc1% = USBInst1, USB\VID_0421&PID_0720&MI_02
+%DeviceDesc1% = USBInst1, USB\VID_045E&PID_04EC&MI_01
+
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0704&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0705&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0706&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0707&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0708&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0709&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0710&MI_00
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0723&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0724&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0725&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0726&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0727&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0728&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0729&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072A&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072B&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072C&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072D&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072E&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_072F&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0730&MI_03
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0731&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0732&MI_02
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0733&MI_01
+%DeviceDesc1% = USBInst2, USB\VID_0421&PID_0734&MI_02
+
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0705&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0707&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0709&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070B&MI_00
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070D
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_070F
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0710&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_071E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0720&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0722&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0724&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0726&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0728&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072A&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072C&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_072E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0730&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0732&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0734&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0736&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0738&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073A&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073C&MI_02
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_073E&MI_01
+%DeviceDesc2% = USBInst3, USB\VID_0421&PID_0740&MI_01
+%DeviceDesc3% = USBInst3, USB\VID_0421&PID_06E4
+%DeviceDesc3% = USBInst3, USB\VID_0421&PID_070E
+
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0735&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0736&MI_03
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0737&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0738&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0739&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073A&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073B&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073C&MI_03
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073D&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073E&MI_02
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_073F&MI_01
+%DeviceDesc1% = USBInst4, USB\VID_0421&PID_0740&MI_02
+
+[USBInst1]
+Include     = winusb.inf
+Needs       = WINUSB.NT
+
+[USBInst1.HW]
+AddReg = Device_Reg_1
+
+[USBInst1.Services]
+Include     = winusb.inf
+AddService  = winusb,0x00000002,winusb_add_service
+
+[USBInst1.CoInstallers]
+AddReg      = CoInstallers_AddReg
+CopyFiles   = CoInstallers_CopyFiles
+
+[USBInst1.Wdf]
+KmdfService=WINUSB, WinUsb_Install
+
+[USBInst2]
+Include     = winusb.inf
+Needs       = WINUSB.NT
+
+[USBInst2.HW]
+AddReg = Device_Reg_2
+
+[USBInst2.Services]
+Include     = winusb.inf
+AddService  = winusb,0x00000002,winusb_add_service
+
+[USBInst2.CoInstallers]
+AddReg      = CoInstallers_AddReg
+CopyFiles   = CoInstallers_CopyFiles
+
+[USBInst2.Wdf]
+KmdfService=WINUSB, WinUsb_Install
+
+[USBInst3]
+Include     = winusb.inf
+Needs       = WINUSB.NT
+
+[USBInst3.HW]
+AddReg = Device_Reg_3
+
+[USBInst3.Services]
+Include     = winusb.inf
+AddService  = winusb,0x00000002,winusb_add_service
+
+[USBInst3.CoInstallers]
+AddReg      = CoInstallers_AddReg
+CopyFiles   = CoInstallers_CopyFiles
+
+[USBInst3.Wdf]
+KmdfService=WINUSB, WinUsb_Install
+
+[USBInst4]
+Include     = winusb.inf
+Needs       = WINUSB.NT
+
+[USBInst4.HW]
+AddReg = Device_Reg_4
+
+[USBInst4.Services]
+Include     = winusb.inf
+AddService  = winusb,0x00000002,winusb_add_service
+
+[USBInst4.CoInstallers]
+AddReg      = CoInstallers_AddReg
+CopyFiles   = CoInstallers_CopyFiles
+
+[USBInst4.Wdf]
+KmdfService=WINUSB, WinUsb_Install
+
+[Device_Reg_1]
+HKR,,DeviceInterfaceGUIDs,0x10000,"{0FD3B15C-D457-45d8-A779-C2B2C9F9D0FD}"
+HKR,,"Icons",0x00010000,"%%SystemRoot%%\system32\shell32.dll,-314"
+
+[Device_Reg_2]
+HKR,,DeviceInterfaceGUIDs,0x10000,"{25349CF2-B61F-479E-BAFE-3A73217449D7}"
+HKR,,"Icons",0x00010000,"%%SystemRoot%%\system32\shell32.dll,-314"
+
+[Device_Reg_3]
+HKR,,DeviceInterfaceGUIDs,0x10000,"{F72FE0D4-CBCB-407D-8814-9ED673D0DD6B}"
+
+[Device_Reg_4]
+HKR,,DeviceInterfaceGUIDs,0x10000,"{5AF2F48B-80C2-4529-9DF7-E56927E494E2}"
+HKR,,"Icons",0x00010000,"%%SystemRoot%%\system32\shell32.dll,-314"
+
+[CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"winusbcoinstaller2.dll","WdfCoInstaller01009.dll,WdfCoInstaller"
+
+[CoInstallers_CopyFiles]
+winusbcoinstaller2.dll
+WdfCoInstaller01009.dll
+
+[WinUSB_Install]
+KmdfLibraryVersion=1.9
+
+[ClassInstall32]
+Addreg = Interface_ClassReg32
+
+[Interface_ClassReg32]
+HKR,,,,%DeviceClass%
+HKR,,SilentInstall,,1
+HKR,,Icon,,-20
+
+[winusb_add_service]
+DisplayName    = %ServiceDesc%
+ServiceType    = 1 ; SERVICE_KERNEL_DRIVER
+StartType      = 3 ; SERVICE_DEMAND_START
+ErrorControl   = 1 ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\winusb.sys
+
+
+[Strings]
+
+; Non-localizable strings
+SERVICE_KERNEL_DRIVER = 0x1
+SERVICE_DEMAND_START  = 0x3
+SERVICE_ERROR_NORMAL  = 0x1
+
+; Localizable strings
+ProviderName       = "Nokia"
+InstallDisk        = "Nokia WinUSB Driver Installation Disk"
+DeviceDesc1        = "Nokia USB Connectivity"
+DeviceDesc2        = "Nokia ADB Connectivity"
+DeviceDesc3        = "Nokia Flash Connectivity"
+ServiceDesc        = "WinUSB Driver"
+DeviceClass        = "Universal Serial Bus devices"

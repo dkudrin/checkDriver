@@ -1,0 +1,88 @@
+; wacomvhid.INF
+; Installation inf for wacomvhid.sys
+; Copyright (c) 2004-2006 Wacom Technology
+
+[Version]
+signature="$WINDOWS NT$"
+Class=HIDClass
+ClassGuid={745A17A0-74D3-11D0-B6FE-00A0C90F57DA}
+Provider=%WACOM%
+CatalogFile=wacomvhid.cat
+DriverVer=09/21/2009,2.09.0002.4
+
+[SourceDisksNames]
+1=%Diskname%
+
+[SourceDisksFiles]
+wacomvhid.sys = 1
+wacommousefilter.sys = 1
+
+[DestinationDirs]
+wacomvhid.CopyFiles = 12
+
+[Manufacturer]
+%WACOM% = WACOM,NTamd64
+
+[WACOM]
+%WacomVHid%      = wacomvhid, ROOT\WACOMVIRTUALHID
+%VHidDevice%     = vhiddevice, HID\HIDCLASS
+
+[WACOM.NTamd64]
+%WacomVHid%      = wacomvhid, ROOT\WACOMVIRTUALHID
+%VHidDevice%     = vhiddevice, HID\HIDCLASS
+
+[wacomvhid.NT]
+CopyFiles = wacomvhid.CopyFiles
+
+[wacomvhid.NT.Services]
+AddService = wacomvhid,0x00000002,wacomvhid_Service_Inst,
+
+[wacomvhid.NT.HW]
+AddReg = wacomvhid.AddReg
+
+[wacomvhid.CopyFiles]
+wacomvhid.sys
+
+[wacomvhid_Service_Inst]
+DisplayName   = %WacomVHid.Desc%
+ServiceType   = %SERVICE_KERNEL_DRIVER%
+StartType     = %SERVICE_DEMAND_START%
+ErrorControl  = %SERVICE_ERROR_IGNORE%
+ServiceBinary = %12%\wacomvhid.sys
+
+[wacomvhid.AddReg]
+
+[vhiddevice.NT]
+AddReg = wacomvhid.AddReg
+
+[vhiddevice.NT.Services]
+AddService = ,0x00000002,
+
+;================================================================
+[Strings]
+;  *******Localizable Strings*******
+WACOM          = "Wacom"
+WacomVHid      = "Wacom Virtual Hid Driver"
+VHidDevice     = "Wacom HID Device"
+WacomVHid.Desc = "Wacom Virtual Hid Driver"
+Diskname       = "Wacom Installer"
+
+;  *******Non Localizable Strings*******
+SERVICE_BOOT_START   = 0x0
+SERVICE_SYSTEM_START = 0x1
+SERVICE_AUTO_START   = 0x2
+SERVICE_DEMAND_START = 0x3
+SERVICE_DISABLED     = 0x4
+
+SERVICE_KERNEL_DRIVER = 0x1
+
+SERVICE_ERROR_IGNORE   = 0x0
+SERVICE_ERROR_NORMAL   = 0x1
+SERVICE_ERROR_SEVERE   = 0x2
+SERVICE_ERROR_CRITICAL = 0x3
+
+REG_EXPAND_SZ = 0x00020000
+REG_DWORD     = 0x00010001
+REG_MULTI_SZ  = 0x00010000
+REG_BINARY    = 0x00000001
+REG_SZ        = 0x00000000
